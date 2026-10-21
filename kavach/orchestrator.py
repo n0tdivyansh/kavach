@@ -22,12 +22,14 @@ from .models import CheckRequest, Report
 
 SPECIALISTS = {"link-forensics": link_agent.agent.address, "pattern-analyst": pattern_agent.agent.address}
 TIMEOUT_S = 20
+# playbooks that are scams on their own, whatever else the message says
+DECISIVE = {"fee", "upi-collect", "impersonation", "credentials", "too-good", "victim"}
 PHONE_RE = re.compile(r"(?:\+91[\s-]?)?\b[6-9]\d{9}\b")
 
 agent = Agent(
     name="kavach",
     port=8000,
-    seed=os.getenv("KAVACH_SEED", "kavach orchestrator agent seed v1"),
+    seed=os.getenv("KAVACH_SEED", "kavach dev seed"),
     mailbox=os.getenv("KAVACH_LOCAL") != "1",
     readme_path=str(Path(__file__).parent.parent / "AGENTVERSE_README.md"),
     description="Paste any suspicious job/internship offer, UPI request, SMS or 'digital arrest' call script. "
@@ -37,6 +39,10 @@ chat = Protocol(spec=chat_protocol_spec)
 pending: dict[str, dict] = {}  # request_id -> {sender, text, reports, t}
 
 ACTIONS = {
+    "victim": "Call **1930** NOW and file at https://cybercrime.gov.in: complaints in the first hour can get the money frozen in transit. "
+              "Then call your bank to block the transaction and keep screenshots, UTR/transaction IDs and chat logs.",
+    "upi-collect": "Decline the request. You never approve a payment or enter your UPI PIN to *receive* money.",
+    "kyc": "Banks never ask you to update KYC via an SMS link. Use only the bank's official app or visit a branch.",
     "fee": "Don't pay any 'registration / security / training' fee. Real employers never charge you to join.",
     "impersonation": "No police, CBI, ED or customs officer can 'digitally arrest' you or ask for money on a video call. Hang up.",
     "credentials": "Never share OTP, Aadhaar, PAN or bank details. If you installed AnyDesk/TeamViewer, uninstall it and call your bank.",
@@ -57,14 +63,18 @@ def verdict(score: int) -> tuple[str, str]:
 
 def build_reply(text: str, reports: list[Report]) -> tuple[str, CustomCardPayload]:
     findings = sorted((f for r in reports for f in r.findings), key=lambda f: -f.weight)
-    score = min(100, sum(f.weight for f in findings))
-    label, variant = verdict(score)
     tags = {f.tag for f in findings}
+    score = min(100, sum(f.weight for f in findings))
+    if tags & DECISIVE:
+        score = max(score, 70)
+    label, variant = verdict(score)
+    if "victim" in tags:
+        label = "ACT NOW: you may already have been scammed"
     actions = [a for t, a in ACTIONS.items() if t in tags]
-    if score >= 30:
+    if score >= 30 and "victim" not in tags:
         actions.append("Report it at https://cybercrime.gov.in or call **1930** (if money was lost, call within the first hour). "
                        "Report the number/SMS on Sanchar Saathi → Chakshu (https://sancharsaathi.gov.in).")
-    else:
+    elif score < 30:
         actions.append("Still verify independently before sharing documents or paying anything.")
     evidence = [f.detail for f in findings if f.weight > 0] or ["No red flags matched."]
     notes = [r.summary for r in reports if r.summary]

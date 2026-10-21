@@ -13,6 +13,8 @@ for line in (Path(__file__).parent / ".env").read_text().splitlines() if (Path(_
 
 if "--selftest" in sys.argv:
     os.environ["KAVACH_LOCAL"] = "1"
+    # separate identity, or the selftest overwrites the live agent's Almanac endpoint
+    os.environ["KAVACH_SEED"] = "kavach selftest orchestrator seed"
 
 from uagents import Agent, Bureau, Context  # noqa: E402
 from uagents_core.contrib.protocols.chat import ChatAcknowledgement, ChatMessage, TextContent  # noqa: E402

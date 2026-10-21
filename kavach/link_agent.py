@@ -1,4 +1,5 @@
 """Link forensics: URLs, domains, sender emails and UPI IDs found in the message."""
+import os
 import re
 from datetime import datetime, timezone
 
@@ -25,7 +26,7 @@ BRANDS = {
     "fedex": {"fedex.com"}, "indiapost": {"indiapost.gov.in"},
 }
 
-agent = Agent(name="kavach-link-forensics", seed="kavach link forensics agent seed v1")
+agent = Agent(name="kavach-link-forensics", seed=os.getenv("KAVACH_SEED", "kavach dev seed") + " link-forensics")
 
 
 def domain_age_days(domain: str) -> int | None:
