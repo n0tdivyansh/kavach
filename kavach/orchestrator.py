@@ -36,6 +36,9 @@ agent = Agent(
     "Kavach's agents check links, domains and scam patterns and tell you if it's a scam and what to do.",
 )
 chat = Protocol(spec=chat_protocol_spec)
+HELP = ("Hi, I'm **Kavach** 🛡️. Paste the full suspicious message: internship/job offer, UPI payment request, "
+        "SMS, email or what a 'police officer' said on the call. Include any links, numbers or UPI IDs. "
+        "I'll tell you if it's a scam and what to do next.")
 pending: dict[str, dict] = {}  # request_id -> {sender, text, reports, t}
 
 ACTIONS = {
@@ -115,7 +118,12 @@ async def finish(ctx: Context, rid: str):
     job = pending.pop(rid, None)
     if not job:
         return
-    text, card = build_reply(job["text"], list(job["reports"].values()))
+    reports = list(job["reports"].values())
+    if len(job["text"]) < 90 and not any(f.weight for r in reports for f in r.findings):
+        # a greeting or "can you check X?" with nothing to analyse gets the how-to, not an empty verdict
+        await ctx.send(job["sender"], ChatMessage(content=[TextContent(type="text", text=HELP)]))
+        return
+    text, card = build_reply(job["text"], reports)
     st = await ctx.send(job["sender"], ChatMessage(content=[
         TextContent(type="text", text=text),
         create_card_content(card, is_terminal=True),
@@ -131,11 +139,8 @@ async def on_chat(ctx: Context, sender: str, msg: ChatMessage):
     text = re.sub(r"^(?:\**@[^\s*]+\**\s*)+", "", msg.text().strip())
     if not text:
         return
-    if len(text) < 25:
-        await ctx.send(sender, ChatMessage(content=[TextContent(type="text", text=(
-            "Hi, I'm **Kavach** 🛡️. Paste the full suspicious message: internship/job offer, UPI payment request, "
-            "SMS, email or what a 'police officer' said on the call. Include any links, numbers or UPI IDs. "
-            "I'll tell you if it's a scam and what to do next."))]))
+    if len(text) < 12:
+        await ctx.send(sender, ChatMessage(content=[TextContent(type="text", text=HELP)]))
         return
     rid = str(uuid4())
     pending[rid] = {"sender": sender, "text": text, "reports": {}, "t": time.time()}
