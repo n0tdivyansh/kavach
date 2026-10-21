@@ -20,7 +20,7 @@ RULES = [
     (30, "credentials", r"\botp\b|aadhaar|\bpan\b|cvv|net ?banking|bank (?:details|password)|anydesk|teamviewer|screen ?share|quick ?support", "Asks for OTP / ID / bank access or a remote-access app"),
     (15, "no-interview", r"selected without (?:an )?interview|no interview|direct (?:selection|joining)|you (?:have been|are) (?:shortlisted|selected)", "Selected without any interview"),
     (40, "victim", r"already (?:paid|transferred|sent|lost)|i (?:have )?(?:paid|transferred|lost)|money (?:is )?gone|(?:got|been|was) scammed|fake (?:job )?consultancy", "You may already have lost money: act within the golden hour"),
-    (30, "upi-collect", r"collect request|approve .{0,40}(?:to (?:claim|receive|get))|enter (?:your )?(?:upi )?pin to (?:receive|claim)|cashback|refund", "UPI collect/'refund' trick: approving a request or entering your PIN sends money, never receives it"),
+    (30, "upi-collect", r"collect request|approve .{0,40}(?:to (?:claim|receive|get))|enter (?:your )?(?:upi )?pin to (?:receive|claim)|cashback|\brefunds?\b", "UPI collect/'refund' trick: approving a request or entering your PIN sends money, never receives it"),
     (30, "kyc", r"\bkyc\b|account (?:will be |has been )?(?:blocked|suspended|frozen)|update (?:your )?(?:bank|pan|kyc)", "Fake KYC-expiry / account-block alert"),
     (10, "lottery", r"lottery|lucky draw|you (?:have )?won|prize money|kbc", "Prize/lottery bait"),
 ]

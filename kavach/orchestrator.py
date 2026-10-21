@@ -127,7 +127,8 @@ async def finish(ctx: Context, rid: str):
 @chat.on_message(ChatMessage)
 async def on_chat(ctx: Context, sender: str, msg: ChatMessage):
     await ctx.send(sender, ChatAcknowledgement(acknowledged_msg_id=msg.msg_id))
-    text = msg.text().strip()
+    # ASI:One prefixes the agent mention, e.g. "**@kavach** ..."; it isn't part of the suspicious message
+    text = re.sub(r"^(?:\**@[^\s*]+\**\s*)+", "", msg.text().strip())
     if not text:
         return
     if len(text) < 25:
