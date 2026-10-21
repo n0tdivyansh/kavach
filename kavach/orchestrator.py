@@ -26,6 +26,7 @@ PHONE_RE = re.compile(r"(?:\+91[\s-]?)?\b[6-9]\d{9}\b")
 
 agent = Agent(
     name="kavach",
+    port=8000,
     seed=os.getenv("KAVACH_SEED", "kavach orchestrator agent seed v1"),
     mailbox=os.getenv("KAVACH_LOCAL") != "1",
     readme_path=str(Path(__file__).parent.parent / "AGENTVERSE_README.md"),

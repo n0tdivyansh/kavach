@@ -1,5 +1,7 @@
-"""Run all Kavach agents in one process.  `python main.py` (Agentverse mailbox) or `python main.py --selftest`."""
+"""`python main.py` runs Kavach live (orchestrator on :8000 with Agentverse mailbox, specialists on :8001).
+`python main.py --selftest` runs everything offline in one Bureau."""
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -15,13 +17,21 @@ if "--selftest" in sys.argv:
 from uagents import Agent, Bureau, Context  # noqa: E402
 from uagents_core.contrib.protocols.chat import ChatAcknowledgement, ChatMessage, TextContent  # noqa: E402
 
-from kavach import link_agent, orchestrator, pattern_agent  # noqa: E402
+from kavach import link_agent, pattern_agent  # noqa: E402
 
-bureau = Bureau(port=8000, endpoint="http://127.0.0.1:8000/submit")
-for a in (orchestrator.agent, link_agent.agent, pattern_agent.agent):
-    bureau.add(a)
+if "--specialists" in sys.argv:
+    bureau = Bureau(port=8001, endpoint="http://127.0.0.1:8001/submit")
+    bureau.add(link_agent.agent)
+    bureau.add(pattern_agent.agent)
+    bureau.run()
+    sys.exit()
+
+from kavach import orchestrator  # noqa: E402
 
 if "--selftest" in sys.argv:
+    bureau = Bureau(port=8000, endpoint="http://127.0.0.1:8000/submit")
+    for a in (orchestrator.agent, link_agent.agent, pattern_agent.agent):
+        bureau.add(a)
     SAMPLE = (
         "Congratulations! You are selected for Amazon Work From Home Internship without interview. Stipend Rs 25,000/month. "
         "Pay refundable security deposit of Rs 1,999 within 24 hours to confirm your seat to UPI hr.amazon@ybl. "
@@ -29,7 +39,6 @@ if "--selftest" in sys.argv:
         "Mail: amazonhr.recruit@gmail.com"
     )
     tester = Agent(name="selftest", seed="kavach selftest seed")
-    replies = []
 
     @tester.on_event("startup")
     async def go(ctx: Context):
@@ -51,4 +60,12 @@ if "--selftest" in sys.argv:
 
 if __name__ == "__main__":
     print(f"Kavach orchestrator address: {orchestrator.agent.address}")
-    bureau.run()
+    if "--selftest" in sys.argv:
+        bureau.run()
+    else:
+        # Agentverse's inspector can't attach to a Bureau, so the orchestrator runs on its own
+        specialists = subprocess.Popen([sys.executable, __file__, "--specialists"])
+        try:
+            orchestrator.agent.run()
+        finally:
+            specialists.terminate()
