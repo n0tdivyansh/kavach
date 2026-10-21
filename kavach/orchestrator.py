@@ -106,11 +106,12 @@ async def finish(ctx: Context, rid: str):
     if not job:
         return
     text, card = build_reply(job["text"], list(job["reports"].values()))
-    await ctx.send(job["sender"], ChatMessage(content=[
+    st = await ctx.send(job["sender"], ChatMessage(content=[
         TextContent(type="text", text=text),
         create_card_content(card, is_terminal=True),
         EndSessionContent(type="end-session"),
     ]))
+    ctx.logger.info(f"{rid}: verdict sent ({len(job['reports'])}/{len(SPECIALISTS)} reports): {st.status} {st.detail}")
 
 
 @chat.on_message(ChatMessage)
@@ -128,7 +129,8 @@ async def on_chat(ctx: Context, sender: str, msg: ChatMessage):
     rid = str(uuid4())
     pending[rid] = {"sender": sender, "text": text, "reports": {}, "t": time.time()}
     for addr in SPECIALISTS.values():
-        await ctx.send(addr, CheckRequest(request_id=rid, text=text))
+        st = await ctx.send(addr, CheckRequest(request_id=rid, text=text))
+        ctx.logger.info(f"send {addr[:14]}: {st.status} {st.detail} {st.endpoint}")
     ctx.logger.info(f"{rid}: dispatched to {len(SPECIALISTS)} specialists")
 
 

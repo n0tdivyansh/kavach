@@ -29,7 +29,7 @@ if "--specialists" in sys.argv:
 from kavach import orchestrator  # noqa: E402
 
 if "--selftest" in sys.argv:
-    bureau = Bureau(port=8000, endpoint="http://127.0.0.1:8000/submit")
+    bureau = Bureau(port=8010, endpoint="http://127.0.0.1:8010/submit")
     for a in (orchestrator.agent, link_agent.agent, pattern_agent.agent):
         bureau.add(a)
     SAMPLE = (
@@ -64,6 +64,11 @@ if __name__ == "__main__":
         bureau.run()
     else:
         # Agentverse's inspector can't attach to a Bureau, so the orchestrator runs on its own
+        from uagents.dispatch import dispatcher
+
+        # specialists are imported here only for their addresses; route to the real ones on :8001
+        for a in (link_agent.agent, pattern_agent.agent):
+            dispatcher.unregister(a.address, a)
         specialists = subprocess.Popen([sys.executable, __file__, "--specialists"])
         try:
             orchestrator.agent.run()
