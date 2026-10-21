@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Kavach deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@page{size:1600px 900px;margin:0}
+:root{--ink:#14161c;--mute:#5b6070;--line:#e3e1da;--bg:#f7f5ef;--card:#fff;--acc:#d9480f;--acc2:#1f6f5c;--warn:#fff1e8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,sans-serif;color:var(--ink);background:var(--bg)}
+.s{width:1600px;height:900px;padding:80px 96px;position:relative;page-break-after:always;overflow:hidden;background:var(--bg)}
+.s:last-child{page-break-after:auto}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em}
+h1{font-size:120px;line-height:.95}
+h2{font-size:58px;line-height:1.05;max-width:1200px}
+h3{font-size:28px;margin-bottom:10px}
+.k{font:500 18px 'JetBrains Mono',monospace;color:var(--acc);text-transform:uppercase;letter-spacing:.12em;margin-bottom:22px}
+p,li{font-size:24px;line-height:1.45;color:var(--mute)}
+b{color:var(--ink);font-weight:600}
+.foot{position:absolute;left:96px;right:96px;bottom:40px;display:flex;justify-content:space-between;font:400 15px 'JetBrains Mono',monospace;color:#9a9da8}
+.grid{display:grid;gap:28px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px}
+.big{font:700 76px 'Space Grotesk';color:var(--ink);line-height:1}
+.big small{font-size:30px}
+.mono{font-family:'JetBrains Mono',monospace}
+ul{padding-left:26px}
+.tag{display:inline-block;font:500 16px 'JetBrains Mono';padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;margin:0 8px 8px 0;color:var(--ink)}
+.chat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;font-size:19px}
+.bubble{background:#eef0f4;border-radius:14px;padding:16px 18px;color:var(--ink);font-size:19px;line-height:1.4;margin-bottom:16px}
+.verdict{border-left:6px solid var(--acc);background:var(--warn);border-radius:10px;padding:16px 20px}
+.verdict h4{font:700 26px 'Space Grotesk';color:var(--acc)}
+.verdict li{font-size:18px;line-height:1.5;color:var(--ink)}
+svg text{font-family:Inter}
+</style></head><body>
+
+<!-- 1 -->
+<section class="s" style="background:var(--ink);color:#fff">
+  <div class="k" style="color:#ff8a4c">Fetch-A-Thon 3.0 · GCET Edition · Round 1</div>
+  <h1 style="margin-top:120px">Kavach</h1>
+  <p style="font-size:38px;color:#d6d8de;margin-top:24px;max-width:1100px;line-height:1.3">A multi-agent scam shield for students. Paste a suspicious offer, UPI request or "digital arrest" script into <b style="color:#fff">ASI:One</b>, get a verdict, the evidence and a complaint that's ready to file.</p>
+  <div style="position:absolute;left:96px;bottom:80px;font:500 22px 'JetBrains Mono';color:#9aa0ad">Team: TODO team name · TODO member names</div>
+  <svg style="position:absolute;right:110px;top:110px" width="250" height="290" viewBox="0 0 100 116"><path d="M50 3 92 18v38c0 28-18 47-42 57C26 103 8 84 8 56V18z" fill="none" stroke="#ff8a4c" stroke-width="4"/><path d="m32 58 13 13 24-28" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</section>
+
+<!-- 2 Problem -->
+<section class="s">
+  <div class="k">01 · Problem</div>
+  <h2>Students are the easiest target for India's cyber-fraud industry, and the warning signs are checkable.</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:56px">
+    <div class="c"><div class="big">₹22,849<small> cr</small></div><p style="margin-top:12px">lost to cyber fraud in India in 2024, across <b>19.2 lakh</b> complaints (I4C)</p></div>
+    <div class="c"><div class="big">1.23<small> lakh</small></div><p style="margin-top:12px"><b>"digital arrest"</b> cases in 2024, costing <b>₹1,935 cr</b>. No real agency arrests anyone on a video call.</p></div>
+    <div class="c"><div class="big">0</div><p style="margin-top:12px">real employers who charge a <b>"refundable deposit"</b>. Fake internship and task scams still trap freshers every placement season.</p></div>
+  </div>
+  <p style="margin-top:44px;max-width:1300px">The red flags are well known: a new lookalike domain, a fee before joining, a UPI ID, WhatsApp-only HR, urgency, "don't tell your family". But a panicked student has <b>no fast way to check them</b> before paying.</p>
+  <div class="foot"><span>Sources: I4C / MHA data via ThePrint, Moneylife; parliamentary replies on digital arrest</span><span>Kavach</span></div>
+</section>
+
+<!-- 3 Solution -->
+<section class="s">
+  <div class="k">02 · Solution</div>
+  <div class="grid" style="grid-template-columns:1fr 1.05fr;gap:56px;align-items:start">
+    <div>
+      <h2 style="font-size:52px">Ask ASI:One "is this a scam?" and a team of agents investigates.</h2>
+      <ul style="margin-top:36px;display:grid;gap:14px">
+        <li><b>Verdict + 0–100 risk score</b> with every piece of evidence explained</li>
+        <li><b>Real actions:</b> don't pay, hang up, freeze the bank, call <b>1930</b></li>
+        <li><b>Pre-filled cybercrime.gov.in complaint</b> with the suspect's UPI, number and domain pulled out</li>
+        <li><b>Interactive verdict card</b> inside ASI:One. No app to install.</li>
+      </ul>
+    </div>
+    <div class="chat">
+      <div class="bubble">Selected for Amazon WFH internship without interview. Pay refundable deposit ₹1,999 within 24 hrs to <span class="mono">hr.amazon@ybl</span>. Apply at <span class="mono">amazon-careers-hiring.xyz</span>…</div>
+      <div class="verdict"><h4>HIGH RISK · 100/100</h4>
+        <ul style="margin-top:8px">
+          <li>Demands money before you start work</li>
+          <li><span class="mono">amazon-careers-hiring.xyz</span> imitates amazon</li>
+          <li>Payment to UPI ID <span class="mono">hr.amazon@ybl</span></li>
+          <li>Recruiter uses free Gmail · WhatsApp-only · 24-hr urgency</li>
+        </ul></div>
+      <p style="font-size:17px;margin-top:14px">→ What to do now (5 steps) · Ready-to-file complaint</p>
+      <p class="mono" style="font-size:14px;margin-top:6px;color:#9a9da8">Real output from <span>python main.py --selftest</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 Architecture -->
+<section class="s">
+  <div class="k">03 · Agent architecture</div>
+  <h2 style="font-size:50px">One orchestrator, two specialists working in parallel, all on the Agent Chat Protocol</h2>
+  <svg width="1408" height="540" viewBox="0 0 1408 540" style="margin-top:30px">
+    <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10z" fill="#14161c"/></marker></defs>
+    <g font-size="20" fill="#14161c">
+      <rect x="0" y="200" width="230" height="120" rx="16" fill="#fff" stroke="#e3e1da"/>
+      <text x="115" y="250" text-anchor="middle" font-weight="600" font-size="24">ASI:One user</text>
+      <text x="115" y="282" text-anchor="middle" fill="#5b6070" font-size="17">chat, no custom UI</text>
+
+      <rect x="360" y="150" width="340" height="220" rx="16" fill="#14161c"/>
+      <text x="530" y="200" text-anchor="middle" fill="#fff" font-weight="700" font-size="28">kavach</text>
+      <text x="530" y="232" text-anchor="middle" fill="#ff8a4c" font-size="17" font-family="JetBrains Mono">orchestrator · Agentverse mailbox</text>
+      <text x="530" y="272" text-anchor="middle" fill="#d6d8de" font-size="17">Chat Protocol + manifest</text>
+      <text x="530" y="300" text-anchor="middle" fill="#d6d8de" font-size="17">fan-out · merge · score</text>
+      <text x="530" y="328" text-anchor="middle" fill="#d6d8de" font-size="17">actions · complaint · card</text>
+
+      <rect x="870" y="20" width="520" height="210" rx="16" fill="#fff" stroke="#e3e1da"/>
+      <text x="895" y="62" font-weight="700" font-size="24">link-forensics</text>
+      <text x="895" y="100" fill="#5b6070" font-size="18">• Domain age via public RDAP</text>
+      <text x="895" y="130" fill="#5b6070" font-size="18">• Lookalikes of 20 Indian brands (Amazon, SBI, TCS…)</text>
+      <text x="895" y="160" fill="#5b6070" font-size="18">• Shorteners, scam TLDs, free-mail recruiters</text>
+      <text x="895" y="190" fill="#5b6070" font-size="18">• UPI ID, phone and email extraction</text>
+
+      <rect x="870" y="290" width="520" height="210" rx="16" fill="#fff" stroke="#e3e1da"/>
+      <text x="895" y="332" font-weight="700" font-size="24">pattern-analyst</text>
+      <text x="895" y="370" fill="#5b6070" font-size="18">• 10 weighted Indian scam playbooks: fee-first,</text>
+      <text x="895" y="400" fill="#5b6070" font-size="18">  task scam, CBI/customs, OTP/AnyDesk, secrecy…</text>
+      <text x="895" y="430" fill="#5b6070" font-size="18">• ASI:One LLM (asi1-mini) second opinion</text>
+      <text x="895" y="460" fill="#5b6070" font-size="18">  in plain English</text>
+
+      <path d="M232 245H356" stroke="#14161c" stroke-width="2.5" marker-end="url(#a)"/>
+      <text x="294" y="234" text-anchor="middle" font-size="15" font-family="JetBrains Mono">ChatMessage</text>
+      <path d="M356 290H232" stroke="#d9480f" stroke-width="2.5" marker-end="url(#a)"/>
+      <text x="294" y="316" text-anchor="middle" font-size="15" font-family="JetBrains Mono" fill="#d9480f">verdict+card</text>
+
+      <path d="M702 210 866 130" stroke="#14161c" stroke-width="2.5" marker-end="url(#a)"/>
+      <path d="M702 310 866 390" stroke="#14161c" stroke-width="2.5" marker-end="url(#a)"/>
+      <text x="745" y="150" font-size="15" font-family="JetBrains Mono">CheckRequest</text>
+      <text x="760" y="410" font-size="15" font-family="JetBrains Mono">CheckRequest</text>
+      <path d="M866 160 706 240" stroke="#1f6f5c" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#a)"/>
+      <path d="M866 360 706 282" stroke="#1f6f5c" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#a)"/>
+      <text x="790" y="262" font-size="15" font-family="JetBrains Mono" fill="#1f6f5c">Report</text>
+    </g>
+  </svg>
+  <div class="foot"><span>If a specialist misses the 20 s timeout, the verdict uses the evidence that arrived and says so.</span><span>Kavach</span></div>
+</section>
+
+<!-- 5 Tech -->
+<section class="s">
+  <div class="k">04 · Tech stack &amp; flow</div>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:56px">
+    <div>
+      <h2 style="font-size:48px">Built entirely on the Fetch.ai stack</h2>
+      <div style="margin-top:34px">
+        <span class="tag">uAgents 0.26 (Python)</span><span class="tag">Agent Chat Protocol</span><span class="tag">Agentverse mailbox</span><span class="tag">ASI:One discovery</span><span class="tag">ASI1 Interactive Card</span><span class="tag">ASI:One LLM API</span><span class="tag">uAgents Bureau</span><span class="tag">RDAP (rdap.org)</span><span class="tag">pydantic message models</span>
+      </div>
+      <p style="margin-top:30px">Typed messages between agents (<span class="mono">CheckRequest</span> → <span class="mono">Report[Finding]</span>). Each finding carries a weight, a category and a plain-English reason, so <b>every verdict can be explained</b>. Without an LLM key it still works on rules alone.</p>
+    </div>
+    <div class="c">
+      <h3>Primary flow, all inside ASI:One</h3>
+      <ol style="padding-left:26px;display:grid;gap:12px;margin-top:12px">
+        <li>User pastes the message or asks "is this a scam?"</li>
+        <li>ASI:One routes to <b>kavach</b> (Chat Protocol), which sends an acknowledgement</li>
+        <li>kavach sends a <b>CheckRequest</b> to both specialists in parallel</li>
+        <li>Specialists call tools (RDAP, regex playbooks, ASI:One LLM) and return a <b>Report</b></li>
+        <li>kavach merges and scores the evidence, then replies with markdown, a verdict card and EndSession</li>
+      </ol>
+      <p class="mono" style="font-size:16px;margin-top:22px;color:#1f6f5c">✓ python main.py --selftest: SELFTEST PASS</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 Impact -->
+<section class="s">
+  <div class="k">05 · Impact</div>
+  <h2>A check that takes seconds, between "pay ₹1,999 now" and the student paying.</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:54px">
+    <div class="c"><h3>Prevents loss</h3><p>Flags fee-first jobs, task scams and digital arrest scripts <b>before money moves</b>, the only point where recovery is cheap.</p></div>
+    <div class="c"><h3>Speeds up reporting</h3><p>A pre-filled complaint with the suspect's identifiers turns panic into a <b>1930 call or a cybercrime.gov.in filing</b> within the first hour.</p></div>
+    <div class="c"><h3>Reaches people</h3><p>Lives in ASI:One with no app to install. Colleges and placement cells can share one agent link with <b>every student</b>.</p></div>
+  </div>
+  <p style="margin-top:44px">Who it's for: <b>students and freshers</b> during placement season, <b>their parents</b> (the main digital arrest targets), and <b>campus T&amp;P cells</b> checking offers that come in.</p>
+</section>
+
+<!-- 7 Roadmap -->
+<section class="s">
+  <div class="k">06 · What's next · Links</div>
+  <div class="grid" style="grid-template-columns:1.1fr .9fr;gap:56px">
+    <div>
+      <h2 style="font-size:50px">More specialists can plug into the same protocol</h2>
+      <ul style="margin-top:30px;display:grid;gap:12px">
+        <li><b>Screenshot agent:</b> OCR on WhatsApp and SMS screenshots</li>
+        <li><b>Number-reputation agent:</b> phone and UPI IDs reported by other users</li>
+        <li><b>Community registry agent:</b> every confirmed scam strengthens the next check</li>
+        <li><b>Hindi and regional-language replies</b> for parents</li>
+        <li><b>Payment Protocol:</b> bulk offer checks for placement cells</li>
+      </ul>
+    </div>
+    <div class="c" style="align-self:start">
+      <h3>Try it</h3>
+      <p style="font-size:20px;margin-top:8px"><b>GitHub:</b> <span class="mono" style="font-size:18px">TODO github link</span></p>
+      <p style="font-size:20px;margin-top:10px"><b>Agentverse agent:</b><br><span class="mono" style="font-size:15px;word-break:break-all">agent1qvs08a4fwv7f5vmnreqnrpuncepa5gvgp3320sk669x0pqmzpeqrww5h702</span></p>
+      <p style="font-size:20px;margin-top:10px"><b>Run locally:</b> <span class="mono" style="font-size:17px">python main.py --selftest</span></p>
+      <p style="font-size:20px;margin-top:10px"><b>Team:</b> TODO</p>
+    </div>
+  </div>
+</section>
+</body></html>
