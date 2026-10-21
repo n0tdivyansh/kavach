@@ -2,6 +2,8 @@
 
 Fetch-A-Thon 3.0 (GCET Edition) submission. Built on Fetch.ai **uAgents**, registered on **Agentverse**, usable from **ASI:One** through the Agent Chat Protocol.
 
+**Demo video:** https://youtu.be/QQWuZ74vaOs · **On ASI:One:** `@kavach`
+
 Students get fake internship offers ("pay a refundable deposit"), task scams ("earn ₹3,000/day liking videos") and "digital arrest" calls from fake CBI or customs officers. Kavach lets you paste the message into ASI:One and get back:
 
 1. a **verdict** with a 0–100 risk score
